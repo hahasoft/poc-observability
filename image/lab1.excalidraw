@@ -494,11 +494,16 @@
         "type": 3
       },
       "seed": 1524781707,
-      "version": 308,
-      "versionNonce": 748608869,
+      "version": 309,
+      "versionNonce": 812330917,
       "isDeleted": false,
-      "boundElements": null,
-      "updated": 1723446816009,
+      "boundElements": [
+        {
+          "id": "4xQqBysjd8U9OlzQ_GOZU",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1723448162659,
       "link": null,
       "locked": false
     },
@@ -939,11 +944,16 @@
         "type": 3
       },
       "seed": 1486449387,
-      "version": 292,
-      "versionNonce": 88395173,
+      "version": 293,
+      "versionNonce": 319113829,
       "isDeleted": false,
-      "boundElements": null,
-      "updated": 1723446816009,
+      "boundElements": [
+        {
+          "id": "4xQqBysjd8U9OlzQ_GOZU",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1723448162659,
       "link": null,
       "locked": false
     },
@@ -1525,6 +1535,60 @@
       "originalText": "Host Machine",
       "autoResize": true,
       "lineHeight": 1.25
+    },
+    {
+      "id": "4xQqBysjd8U9OlzQ_GOZU",
+      "type": "arrow",
+      "x": 1363.3333740234375,
+      "y": 490.3333740234375,
+      "width": 3.3333740234375,
+      "height": 204.6666259765625,
+      "angle": 0,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "fillStyle": "solid",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "groupIds": [],
+      "frameId": null,
+      "index": "aT",
+      "roundness": null,
+      "seed": 146937829,
+      "version": 61,
+      "versionNonce": 588821957,
+      "isDeleted": false,
+      "boundElements": null,
+      "updated": 1723448163886,
+      "link": null,
+      "locked": false,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          3.3333740234375,
+          204.6666259765625
+        ]
+      ],
+      "lastCommittedPoint": null,
+      "startBinding": {
+        "elementId": "fDrm3dOuB6O-GpOQzovBr",
+        "focus": 0.16019386729159912,
+        "gap": 1.333343505859375,
+        "fixedPoint": null
+      },
+      "endBinding": {
+        "elementId": "e-hRM8ZJZ0nQC52k6O96K",
+        "focus": -0.32200559723788336,
+        "gap": 1,
+        "fixedPoint": null
+      },
+      "startArrowhead": null,
+      "endArrowhead": "arrow",
+      "elbowed": false
     }
   ],
   "appState": {
