@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: poc-observability
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,prometheus
