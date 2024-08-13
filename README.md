@@ -1,6 +1,6 @@
 # springboot3 observability
 
-![Diagram](./image/lab2.png)
+![Diagram](./image/lab3.png)
 
 ## Run
 - docker compose up
@@ -8,7 +8,8 @@
 
 ## Link
 - http://localhost:8080/actuator
-- http://localhost:4318/v1/metrics
+- http://localhost:16686/
+- http://localhost:9411/zipkin/
 - http://localhost:9090/
 - http://localhost:3000/
 

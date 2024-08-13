@@ -2,6 +2,11 @@ receivers:
   otlp:
     protocols:
       http:
+        endpoint: 0.0.0.0:4318
+        cors:
+          allowed_origins:
+            - "http://*"
+            - "https://*"
 
 processors:
   # batch metrics before sending to reduce API usage
@@ -10,7 +15,15 @@ processors:
 exporters:
   prometheus:
     endpoint: "0.0.0.0:8889"
-
+    const_labels:
+      label1: value1
+  zipkin:
+    endpoint: "http://zipkin-all-in-one:9411/api/v2/spans"
+    format: proto
+  otlp:
+    endpoint: "http://jaeger-all-in-one:4317"
+    tls:
+      insecure: true
 
 # https://github.com/open-telemetry/opentelemetry-collector/blob/main/extension/README.md
 extensions:
@@ -28,3 +41,7 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [prometheus]
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [zipkin,otlp]
