@@ -23,3 +23,19 @@ management:
 logging:
   pattern:
     level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]'
+
+
+otel:
+  exporter:
+    otlp:
+      protocol: grpc
+      endpoint: "http://localhost:4317/"
+  propagators:
+    - tracecontext
+    - b3
+  resource:
+    attributes:
+      deployment.environment: dev
+      service:
+        name: poc-observability
+        namespace: poc-namespace

@@ -1,6 +1,8 @@
 receivers:
   otlp:
     protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
       http:
         endpoint: 0.0.0.0:4318
         cors:
@@ -15,6 +17,9 @@ processors:
 exporters:
   logging:
     loglevel: debug
+
+  loki:
+    endpoint: "http://loki:3100/loki/api/v1/push"
     
   prometheus:
     endpoint: "0.0.0.0:8889"
@@ -47,8 +52,11 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging,prometheus]
+      exporters: [prometheus]
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging,zipkin,otlp,otlp/tempo]
+      exporters: [zipkin,otlp,otlp/tempo]
+    logs:
+      receivers: [otlp]
+      exporters: [logging,loki]
