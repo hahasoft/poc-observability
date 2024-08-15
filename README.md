@@ -1,6 +1,6 @@
 # springboot3 observability
 
-![Diagram](./image/lab3.png)
+![Diagram](./image/lab4.png)
 
 ## Run
 - docker compose up
@@ -12,7 +12,7 @@
 - http://localhost:9411/zipkin/
 - http://localhost:9090/
 - http://localhost:3000/
+- http://localhost:3200/
 
-## Dashboard
-- https://grafana.com/grafana/dashboards/4701-jvm-micrometer/
-
+## Ref
+- https://grafana.com/docs/tempo/latest/getting-started/

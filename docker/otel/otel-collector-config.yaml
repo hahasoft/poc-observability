@@ -13,6 +13,9 @@ processors:
   batch:
 
 exporters:
+  logging:
+    loglevel: debug
+    
   prometheus:
     endpoint: "0.0.0.0:8889"
     const_labels:
@@ -22,6 +25,10 @@ exporters:
     format: proto
   otlp:
     endpoint: "http://jaeger-all-in-one:4317"
+    tls:
+      insecure: true
+  otlp/tempo:
+    endpoint: "http://tempo:4317"
     tls:
       insecure: true
 
@@ -40,8 +47,8 @@ service:
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [prometheus]
+      exporters: [logging,prometheus]
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin,otlp]
+      exporters: [logging,zipkin,otlp,otlp/tempo]
