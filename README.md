@@ -14,9 +14,13 @@
 - http://localhost:3000/
 - http://localhost:3200/
 - http://localhost:3100/
+- http://localhost:8080/actuator/metrics/
+- http://localhost:8080/actuator/metrics/jvm.memory.used
+- http://localhost:8080/actuator/metrics/jvm.memory.used?tag=area:heap
 
 ## Ref
 - https://grafana.com/docs/tempo/latest/getting-started/
+- https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.customizing
 
 ## OpenTelemetry Configuration in Application properties
 ```
@@ -68,3 +72,6 @@ otel.blrp.export.timeout=30000
 # otel.exporter.prometheus.port=9464
 # otel.exporter.prometheus.host=0.0.0.0
 ```
+
+## Screenshot
+![Query1](./image/screenshot/query1.png)

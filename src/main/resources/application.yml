@@ -1,15 +1,23 @@
 spring:
   application:
-    name: poc-observability
+    name: poc-observability-srv
 
 management:
+  metrics:
+    tags:
+      department: ${SERVICE_DEPARTMENT:department-poc}
+      service: ${SERVICE_NAME:${spring.application.name}}
+      team: ${SERVICE_TEAM:team-poc}
+      env: ${SERVICE_ENV:dev}
+      region: ${SERVICE_REGION:us-east-1}
+      instance.id: ${SERVICE_INSTANCE_ID:localhost}
   tracing:
     sampling:
       probability: 1.0
   endpoints:
     web:
       exposure:
-        include: health
+        include: health,metrics
   otlp:
     metrics:
       export:
@@ -37,5 +45,5 @@ otel:
     attributes:
       deployment.environment: dev
       service:
-        name: poc-observability
+        name: ${spring.application.name}
         namespace: poc-namespace
