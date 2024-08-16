@@ -4,20 +4,32 @@ spring:
 
 management:
   metrics:
-    tags:
-      department: ${SERVICE_DEPARTMENT:department-poc}
-      service: ${SERVICE_NAME:${spring.application.name}}
-      team: ${SERVICE_TEAM:team-poc}
-      env: ${SERVICE_ENV:dev}
-      region: ${SERVICE_REGION:us-east-1}
-      instance.id: ${SERVICE_INSTANCE_ID:localhost}
+    distribution:
+      percentiles:
+        all: [0.5,0.7, 0.9, 0.95, 0.99]
+      percentiles-histogram:
+        all: true
+      minimum-expected-value:
+        all: 100ms
+      maximum-expected-value:
+        all: 10s
+      slo:
+        all: 300ms, 500ms, 1s , 2s
+
+#    tags:
+#      department: ${SERVICE_DEPARTMENT:department-poc}
+#      service: ${SERVICE_NAME:${spring.application.name}}
+#      team: ${SERVICE_TEAM:team-poc}
+#      env: ${SERVICE_ENV:dev}
+#      region: ${SERVICE_REGION:us-east-1}
+#      instance.id: ${SERVICE_INSTANCE_ID:localhost}
   tracing:
     sampling:
       probability: 1.0
   endpoints:
     web:
       exposure:
-        include: health,metrics
+        include: health,metrics,prometheus
   otlp:
     metrics:
       export:
