@@ -24,7 +24,8 @@
 - https://grafana.com/docs/tempo/latest/getting-started/
 - https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.customizing
 - https://docs.spring.io/spring-boot/reference/actuator/metrics.html#actuator.metrics.customizing.per-meter-properties
-- 
+- https://docs.spring.io/spring-boot/reference/actuator/observability.html#actuator.observability.annotations
+
 ## OpenTelemetry Configuration in Application properties
 ```
 otel.sdk.disabled=false

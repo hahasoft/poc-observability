@@ -3,12 +3,11 @@ package com.hahasoft.poc.observability;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.observation.ObservationRegistry;
-import io.micrometer.observation.aop.ObservedAspect;
-import io.opentelemetry.exporter.otlp.trace.OtlpGrpcSpanExporter;
+import io.micrometer.tracing.annotation.NewSpan;
+
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
 import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
@@ -48,6 +46,7 @@ public class PocObservabilityApplication {
 		HelloController(RestTemplate restTemplate, SleepService sleepService) {
 			this.restTemplate = restTemplate;
 			this.sleepService = sleepService;
+
 		}
 
 		@GetMapping("/hello")
@@ -73,6 +72,7 @@ public class PocObservabilityApplication {
 	@Service
 	class SleepService {
 		@Timed(value = "do.sleep.method.timed")
+		@NewSpan(value = "do-sleep-method-span")
 		public Long doSleep(Long ms) {
 			try {
 				TimeUnit.MILLISECONDS.sleep(ms);

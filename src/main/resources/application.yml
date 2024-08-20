@@ -3,6 +3,9 @@ spring:
     name: poc-observability-srv
 
 management:
+  observations:
+    annotations:
+      enabled: true
   metrics:
     distribution:
       percentiles:
