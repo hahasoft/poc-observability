@@ -5,6 +5,7 @@ import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.observation.Observation;
 import io.micrometer.observation.ObservationRegistry;
+import io.micrometer.observation.annotation.Observed;
 import io.micrometer.tracing.annotation.NewSpan;
 
 import lombok.extern.slf4j.Slf4j;
@@ -68,14 +69,14 @@ public class PocObservabilityApplication {
 
 		@GetMapping("/sleep")
 		public Long sleep(@RequestParam Long ms) {
-			Observation observation = Observation.createNotStarted("do.sleep.method.timed", this.observationRegistry) // metric name
-					.contextualName("do-sleep-method-span") // span name
-					.lowCardinalityKeyValue("low", "low") // tags for both metric and span
-					.highCardinalityKeyValue("high", "high"); // tgs for span
+//			Observation observation = Observation.createNotStarted("do.sleep.method.timed", this.observationRegistry) // metric name
+//					.contextualName("do-sleep-method-span") // span name
+//					.lowCardinalityKeyValue("low", "low") // tags for both metric and span
+//					.highCardinalityKeyValue("high", "high"); // tgs for span
+//
+//			Long result = observation.observe(() -> this.sleepService.doSleep(ms) );
 
-			Long result = observation.observe(() -> this.sleepService.doSleep(ms) );
-
-//			Long result = this.sleepService.doSleep(ms);
+			Long result = this.sleepService.doSleep(ms);
 			return result;
 		}
 	}
@@ -84,7 +85,10 @@ public class PocObservabilityApplication {
 	class SleepService {
 //		@Timed(value = "do.sleep.method.timed")
 //		@NewSpan(value = "do-sleep-method-span")
-		
+		@Observed(name = "do.sleep.method.timed"
+				, contextualName = "do-sleep-method-span"
+				, lowCardinalityKeyValues = { "low", "low" }
+		)
 		public Long doSleep(Long ms) {
 			try {
 				TimeUnit.MILLISECONDS.sleep(ms);
