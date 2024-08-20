@@ -3,6 +3,8 @@ package com.hahasoft.poc.observability;
 import io.micrometer.core.annotation.Timed;
 import io.micrometer.core.aop.TimedAspect;
 import io.micrometer.core.instrument.MeterRegistry;
+import io.micrometer.observation.Observation;
+import io.micrometer.observation.ObservationRegistry;
 import io.micrometer.tracing.annotation.NewSpan;
 
 import lombok.extern.slf4j.Slf4j;
@@ -42,10 +44,12 @@ public class PocObservabilityApplication {
 
 		private final RestTemplate restTemplate;
 		private final SleepService sleepService;
+		private final ObservationRegistry observationRegistry;
 
-		HelloController(RestTemplate restTemplate, SleepService sleepService) {
+		HelloController(RestTemplate restTemplate, SleepService sleepService,ObservationRegistry observationRegistry) {
 			this.restTemplate = restTemplate;
 			this.sleepService = sleepService;
+			this.observationRegistry = observationRegistry;
 
 		}
 
@@ -64,15 +68,21 @@ public class PocObservabilityApplication {
 
 		@GetMapping("/sleep")
 		public Long sleep(@RequestParam Long ms) {
-			Long result = this.sleepService.doSleep(ms);
+			Long result = Observation.createNotStarted("do.sleep.method.timed", this.observationRegistry) // metric name
+					.contextualName("do-sleep-method-span") // span name
+					.lowCardinalityKeyValue("low", "low") // tags for both metric and span
+					.highCardinalityKeyValue("high", "high") // tgs for span
+					.observe(() -> this.sleepService.doSleep(ms) );
+
+//			Long result = this.sleepService.doSleep(ms);
 			return result;
 		}
 	}
 
 	@Service
 	class SleepService {
-		@Timed(value = "do.sleep.method.timed")
-		@NewSpan(value = "do-sleep-method-span")
+//		@Timed(value = "do.sleep.method.timed")
+//		@NewSpan(value = "do-sleep-method-span")
 		public Long doSleep(Long ms) {
 			try {
 				TimeUnit.MILLISECONDS.sleep(ms);
